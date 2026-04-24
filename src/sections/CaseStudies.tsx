@@ -1,9 +1,5 @@
-import { useEffect, useRef } from 'react'
-import { gsap } from 'gsap'
-import { ScrollTrigger } from 'gsap/ScrollTrigger'
-import { TrendingUp } from 'lucide-react'
-
-gsap.registerPlugin(ScrollTrigger)
+import { motion } from 'framer-motion'
+import { TrendingUp, ExternalLink, Code2, Rocket } from 'lucide-react'
 
 const projects = [
   {
@@ -11,197 +7,153 @@ const projects = [
     title: 'PlayStation Lounge SaaS',
     slug: 'ps-lounge-saas-v4',
     problem: 'Lounge owners managing bookings, sessions, and payments manually with spreadsheets.',
-    solution:
-      'End-to-end SaaS platform with real-time slot booking, automated billing, and staff management dashboard.',
+    solution: 'End-to-end SaaS platform with real-time slot booking, automated billing, and staff management dashboard.',
     tech: ['React', 'Node.js', 'PostgreSQL', 'Stripe', 'Socket.io'],
     impact: '40% reduction in admin time. Revenue tracking automated for 12+ lounge locations.',
     image: '/project-ps-lounge.jpg',
     featured: true,
+    gridClass: 'md:col-span-2 lg:col-span-3 lg:row-span-2',
   },
   {
     id: 2,
     title: 'Qena Marketplace',
     slug: 'qena-market',
-    problem: 'Local vendors in Qena lacked digital presence. No centralized platform for regional commerce.',
-    solution:
-      'Multi-vendor marketplace with vendor onboarding, product catalog, order management, and local delivery integration.',
-    tech: ['Next.js', 'Prisma', 'PostgreSQL', 'Tailwind', 'REST API'],
-    impact: '50+ vendors onboarded in first quarter. 3x average monthly order volume growth.',
+    problem: 'Local vendors in Qena lacked digital presence.',
+    solution: 'Multi-vendor marketplace with vendor onboarding, product catalog, and order management.',
+    tech: ['Next.js', 'Prisma', 'PostgreSQL', 'Tailwind'],
+    impact: '50+ vendors onboarded. 3x monthly order volume growth.',
     image: '/project-qena-market.jpg',
     featured: false,
+    gridClass: 'md:col-span-1 lg:col-span-2 lg:row-span-1',
   },
   {
     id: 3,
     title: 'Happiness Plaza 3D',
     slug: 'happiness-plaza',
-    problem: 'Real estate listings are static images. Buyers cannot experience spatial layout before visiting.',
-    solution:
-      'Interactive 3D property walkthrough system with floor plan navigation and real-time unit availability.',
-    tech: ['Three.js', 'React', 'WebGL', 'Node.js', 'MongoDB'],
-    impact: '60% increase in qualified leads. Average engagement time 4x longer than static listings.',
+    problem: 'Real estate listings are static images.',
+    solution: 'Interactive 3D property walkthrough system with real-time unit availability.',
+    tech: ['Three.js', 'React', 'WebGL', 'Node.js'],
+    impact: '60% increase in qualified leads. 4x engagement time.',
     image: '/project-happiness-plaza.jpg',
     featured: false,
+    gridClass: 'md:col-span-1 lg:col-span-2 lg:row-span-1',
   },
 ]
 
 function TechTag({ name }: { name: string }) {
   return (
-    <span className="font-mono text-[11px] text-text-muted tracking-[0.02em]">{name}</span>
+    <span className="px-2 py-1 bg-white/5 border border-white/10 rounded-md font-mono text-[10px] text-text-muted uppercase tracking-wider">
+      {name}
+    </span>
   )
 }
 
 export default function CaseStudies() {
-  const sectionRef = useRef<HTMLElement>(null)
-  const cardsRef = useRef<(HTMLDivElement | null)[]>([])
-
-  useEffect(() => {
-    const ctx = gsap.context(() => {
-      cardsRef.current.forEach((card, i) => {
-        if (!card) return
-        gsap.fromTo(
-          card,
-          { y: 30, opacity: 0 },
-          {
-            y: 0,
-            opacity: 1,
-            duration: 0.7,
-            ease: 'power2.out',
-            scrollTrigger: {
-              trigger: card,
-              start: 'top 85%',
-            },
-            delay: i * 0.1,
-          }
-        )
-      })
-    }, sectionRef)
-
-    return () => ctx.revert()
-  }, [])
-
-  const featured = projects.find((p) => p.featured)
-  const others = projects.filter((p) => !p.featured)
-
   return (
-    <section ref={sectionRef} id="case-studies" className="bg-bg-core py-24 sm:py-32">
-      <div className="max-w-[1200px] mx-auto px-6">
-        {/* Section Header */}
-        <p className="font-mono text-xs text-text-muted tracking-[0.04em] mb-4">
-          SELECTED WORK
-        </p>
-        <h2 className="font-inter text-4xl sm:text-5xl lg:text-6xl font-medium text-text-primary tracking-[-0.02em] mb-4">
-          Case Studies.
-        </h2>
-        <p className="text-base text-text-secondary max-w-[600px] mb-16">
-          Business cases, not GitHub cards. Every project built with revenue in mind.
-        </p>
+    <section id="case-studies" className="bg-[#050505] py-32 relative overflow-hidden">
+      {/* Background Glow */}
+      <div className="absolute top-1/2 left-1/2 -translate-x-1/2 -translate-y-1/2 w-[1000px] h-[1000px] bg-accent-gold/5 rounded-full blur-[120px] pointer-events-none" />
 
-        {/* Featured Project */}
-        {featured && (
-          <div
-            ref={(el) => { cardsRef.current[0] = el }}
-            className="bg-surface border border-border-dark hover:border-border-light hover:bg-surface-hover hover:-translate-y-0.5 transition-all duration-300 mb-6"
-          >
-            <div className="flex flex-col lg:flex-row">
-              <div className="flex-1 p-8 sm:p-12 lg:p-16">
-                <p className="font-mono text-xs text-text-muted tracking-[0.04em] mb-3">
-                  {featured.slug}
-                </p>
-                <h3 className="font-inter text-2xl sm:text-3xl lg:text-4xl font-medium text-text-primary mb-6">
-                  {featured.title}
-                </h3>
-
-                <div className="space-y-4 mb-8">
-                  <div>
-                    <p className="font-mono text-[11px] text-text-muted tracking-[0.04em] mb-1">
-                      PROBLEM
-                    </p>
-                    <p className="text-sm text-text-secondary">{featured.problem}</p>
-                  </div>
-                  <div>
-                    <p className="font-mono text-[11px] text-text-muted tracking-[0.04em] mb-1">
-                      SOLUTION
-                    </p>
-                    <p className="text-sm text-text-primary">{featured.solution}</p>
-                  </div>
-                </div>
-
-                <div className="flex flex-wrap gap-x-4 gap-y-1 mb-8">
-                  {featured.tech.map((t) => (
-                    <TechTag key={t} name={t} />
-                  ))}
-                </div>
-
-                <div className="flex items-start gap-3 pt-6 border-t border-border-dark">
-                  <TrendingUp size={20} className="text-accent-gold mt-0.5 flex-shrink-0" />
-                  <div>
-                    <p className="font-mono text-[11px] text-accent-gold tracking-[0.04em] mb-1">
-                      BUSINESS IMPACT
-                    </p>
-                    <p className="text-sm text-text-primary">{featured.impact}</p>
-                  </div>
-                </div>
-              </div>
-
-              <div className="lg:w-[45%] relative overflow-hidden">
-                <img
-                  src={featured.image}
-                  alt={featured.title}
-                  className="w-full h-full object-cover min-h-[300px] lg:min-h-full"
-                />
-                <div className="absolute inset-0 bg-gradient-to-r from-surface via-transparent to-transparent lg:bg-gradient-to-l" />
-              </div>
-            </div>
-          </div>
-        )}
-
-        {/* Other Projects Grid */}
-        <div className="grid grid-cols-1 md:grid-cols-2 gap-6">
-          {others.map((project, idx) => (
-            <div
-              key={project.id}
-              ref={(el) => { cardsRef.current[idx + 1] = el }}
-              className="bg-surface border border-border-dark hover:border-border-light hover:bg-surface-hover hover:-translate-y-0.5 transition-all duration-300"
+      <div className="max-w-[1400px] mx-auto px-6 relative z-10">
+        <div className="flex flex-col md:flex-row md:items-end justify-between gap-8 mb-20">
+          <div className="space-y-4">
+            <motion.div 
+              initial={{ opacity: 0, x: -20 }}
+              whileInView={{ opacity: 1, x: 0 }}
+              className="flex items-center gap-3"
             >
-              <div className="relative overflow-hidden h-[200px]">
+              <span className="h-px w-8 bg-accent-gold" />
+              <p className="font-mono text-[10px] uppercase tracking-[0.3em] text-accent-gold/80">Selected Case Studies</p>
+            </motion.div>
+            <motion.h2 
+              initial={{ opacity: 0, y: 20 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              className="font-inter text-5xl md:text-7xl font-bold text-white tracking-tight"
+            >
+              Engineering <span className="italic font-light text-accent-gold">Impact.</span>
+            </motion.h2>
+          </div>
+          <motion.p 
+            initial={{ opacity: 0 }}
+            whileInView={{ opacity: 1 }}
+            className="text-text-secondary max-w-[450px] text-lg leading-relaxed"
+          >
+            I build digital products that solve complex problems and drive measurable business growth.
+          </motion.p>
+        </div>
+
+        {/* Bento Grid */}
+        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-5 gap-6 auto-rows-[minmax(300px,auto)]">
+          {projects.map((project, idx) => (
+            <motion.div
+              key={project.id}
+              initial={{ opacity: 0, y: 30 }}
+              whileInView={{ opacity: 1, y: 0 }}
+              transition={{ delay: idx * 0.1, duration: 0.8 }}
+              className={`${project.gridClass} group relative bg-[#0A0A0A] border border-white/5 rounded-3xl overflow-hidden hover:border-accent-gold/30 transition-all duration-500`}
+            >
+              {/* Image Layer */}
+              <div className="absolute inset-0 z-0">
                 <img
                   src={project.image}
                   alt={project.title}
-                  className="w-full h-full object-cover"
+                  className="w-full h-full object-cover opacity-40 group-hover:opacity-60 group-hover:scale-105 transition-all duration-700"
                 />
-                <div className="absolute inset-0 bg-gradient-to-t from-surface via-transparent to-transparent" />
+                <div className="absolute inset-0 bg-gradient-to-t from-[#0A0A0A] via-[#0A0A0A]/80 to-transparent" />
               </div>
-              <div className="p-8 sm:p-10">
-                <p className="font-mono text-xs text-text-muted tracking-[0.04em] mb-2">
-                  {project.slug}
-                </p>
-                <h3 className="font-inter text-xl sm:text-2xl font-medium text-text-primary mb-4">
-                  {project.title}
-                </h3>
 
-                <div className="space-y-3 mb-6">
-                  <p className="text-sm text-text-secondary">{project.problem}</p>
-                  <p className="text-sm text-text-primary">{project.solution}</p>
-                </div>
+              {/* Content Layer */}
+              <div className="relative z-10 h-full p-8 flex flex-col justify-end">
+                <div className="space-y-4 translate-y-4 group-hover:translate-y-0 transition-transform duration-500">
+                  <div className="flex items-center justify-between">
+                    <p className="font-mono text-[10px] text-accent-gold tracking-[0.2em] uppercase">{project.slug}</p>
+                    <ExternalLink size={16} className="text-white/40 group-hover:text-accent-gold transition-colors" />
+                  </div>
+                  
+                  <h3 className="text-2xl md:text-3xl font-bold text-white">{project.title}</h3>
+                  
+                  <p className="text-text-secondary text-sm leading-relaxed line-clamp-2 group-hover:line-clamp-none transition-all duration-500">
+                    {project.solution}
+                  </p>
 
-                <div className="flex flex-wrap gap-x-3 gap-y-1 mb-6">
-                  {project.tech.map((t) => (
-                    <TechTag key={t} name={t} />
-                  ))}
-                </div>
+                  <div className="flex flex-wrap gap-2 pt-2">
+                    {project.tech.map((t) => <TechTag key={t} name={t} />)}
+                  </div>
 
-                <div className="flex items-start gap-3 pt-4 border-t border-border-dark">
-                  <TrendingUp size={16} className="text-accent-gold mt-0.5 flex-shrink-0" />
-                  <div>
-                    <p className="font-mono text-[11px] text-accent-gold tracking-[0.04em] mb-1">
-                      IMPACT
-                    </p>
-                    <p className="text-sm text-text-primary">{project.impact}</p>
+                  <div className="pt-6 border-t border-white/5 flex items-start gap-4 opacity-0 group-hover:opacity-100 transition-opacity duration-500 delay-100">
+                    <div className="p-2 bg-accent-gold/10 rounded-lg">
+                      <TrendingUp size={18} className="text-accent-gold" />
+                    </div>
+                    <div>
+                      <p className="font-mono text-[10px] text-accent-gold uppercase tracking-wider mb-1">Impact</p>
+                      <p className="text-sm text-white font-medium">{project.impact}</p>
+                    </div>
                   </div>
                 </div>
               </div>
-            </div>
+            </motion.div>
           ))}
+
+          {/* Special Bento Card: Stats/Tech Stack */}
+          <motion.div
+            initial={{ opacity: 0, scale: 0.95 }}
+            whileInView={{ opacity: 1, scale: 1 }}
+            className="md:col-span-1 lg:col-span-2 bg-accent-gold p-8 rounded-3xl flex flex-col justify-between group overflow-hidden relative"
+          >
+            <div className="relative z-10">
+              <Rocket size={32} className="text-black mb-6 group-hover:rotate-12 transition-transform" />
+              <h3 className="text-2xl font-bold text-black mb-2">Always Scaling.</h3>
+              <p className="text-black/70 text-sm font-medium">
+                Pushing the boundaries of what's possible in the intersection of code and commerce.
+              </p>
+            </div>
+            <div className="relative z-10 flex items-end justify-between">
+              <div className="text-4xl font-black text-black tracking-tighter">99.9%</div>
+              <div className="font-mono text-[10px] text-black font-bold uppercase tracking-widest">Uptime Architecture</div>
+            </div>
+            {/* Decorative pattern */}
+            <div className="absolute top-0 right-0 w-32 h-32 bg-black/5 rounded-full -mr-16 -mt-16 group-hover:scale-150 transition-transform duration-700" />
+          </motion.div>
         </div>
       </div>
     </section>

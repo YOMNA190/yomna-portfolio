@@ -1,64 +1,25 @@
 import { useEffect, useRef, useState } from 'react'
 import { gsap } from 'gsap'
-import { ArrowRight, Phone } from 'lucide-react'
+import { motion, useScroll, useTransform, Variants } from 'framer-motion'
+import { ArrowRight, Phone, Code2, TrendingUp, Globe } from 'lucide-react'
 
 export default function Hero() {
   const sectionRef = useRef<HTMLElement>(null)
-  const labelRef = useRef<HTMLParagraphElement>(null)
   const headlineRef = useRef<HTMLHeadingElement>(null)
-  const subRef = useRef<HTMLParagraphElement>(null)
-  const metricsRef = useRef<HTMLDivElement>(null)
-  const ctaRef = useRef<HTMLDivElement>(null)
-  const portraitRef = useRef<HTMLDivElement>(null)
   const [counts, setCounts] = useState({ cpr: 0, ctr: 0, conv: 0 })
+  const { scrollY } = useScroll()
+  const y1 = useTransform(scrollY, [0, 500], [0, 200])
+  const opacity = useTransform(scrollY, [0, 300], [1, 0])
 
   useEffect(() => {
     const ctx = gsap.context(() => {
-      const tl = gsap.timeline({ defaults: { ease: 'power3.out' } })
-
-      tl.fromTo(
-        labelRef.current,
-        { y: 20, opacity: 0 },
-        { y: 0, opacity: 1, duration: 0.6 }
-      )
-        .fromTo(
-          headlineRef.current,
-          { y: 30, opacity: 0 },
-          { y: 0, opacity: 1, duration: 0.8 },
-          '-=0.3'
-        )
-        .fromTo(
-          subRef.current,
-          { y: 20, opacity: 0 },
-          { y: 0, opacity: 1, duration: 0.6 },
-          '-=0.4'
-        )
-        .fromTo(
-          metricsRef.current,
-          { y: 20, opacity: 0 },
-          { y: 0, opacity: 1, duration: 0.6 },
-          '-=0.3'
-        )
-        .fromTo(
-          ctaRef.current,
-          { y: 20, opacity: 0 },
-          { y: 0, opacity: 1, duration: 0.6 },
-          '-=0.3'
-        )
-        .fromTo(
-          portraitRef.current,
-          { x: 40, opacity: 0 },
-          { x: 0, opacity: 1, duration: 1 },
-          '-=0.8'
-        )
-
       // Animate counters
-      const counterTl = gsap.timeline({ delay: 1.2 })
+      const counterTl = gsap.timeline({ delay: 0.5 })
       counterTl.to(
         {},
         {
-          duration: 1.5,
-          ease: 'power2.out',
+          duration: 2,
+          ease: 'power3.out',
           onUpdate: function () {
             const progress = this.progress()
             setCounts({
@@ -74,137 +35,186 @@ export default function Hero() {
     return () => ctx.revert()
   }, [])
 
+  const containerVariants: Variants = {
+    hidden: { opacity: 0 },
+    visible: {
+      opacity: 1,
+      transition: {
+        staggerChildren: 0.15,
+        delayChildren: 0.3,
+      },
+    },
+  }
+
+  const itemVariants: Variants = {
+    hidden: { y: 30, opacity: 0 },
+    visible: {
+      y: 0,
+      opacity: 1,
+      transition: { duration: 0.8, ease: "easeOut" },
+    },
+  }
+
   return (
     <section
       ref={sectionRef}
-      className="relative min-h-screen flex items-center bg-bg-core overflow-hidden"
+      className="relative min-h-screen flex items-center bg-[#050505] overflow-hidden pt-20"
     >
-      {/* Subtle background grid */}
-      <div className="absolute inset-0 opacity-[0.03]">
-        <svg width="100%" height="100%" xmlns="http://www.w3.org/2000/svg">
-          <defs>
-            <pattern id="grid" width="60" height="60" patternUnits="userSpaceOnUse">
-              <path d="M 60 0 L 0 0 0 60" fill="none" stroke="#F5F5F5" strokeWidth="0.5" />
-            </pattern>
-          </defs>
-          <rect width="100%" height="100%" fill="url(#grid)" />
-        </svg>
+      {/* Dynamic Background */}
+      <div className="absolute inset-0 z-0">
+        <div className="absolute inset-0 bg-[radial-gradient(circle_at_50%_50%,rgba(212,175,55,0.05),transparent_70%)]" />
+        <div className="absolute top-0 left-0 w-full h-full opacity-[0.15]" 
+             style={{ backgroundImage: 'url("https://www.transparenttextures.com/patterns/stardust.png")' }} />
+        <motion.div 
+          style={{ y: y1, opacity }}
+          className="absolute inset-0 flex items-center justify-center pointer-events-none"
+        >
+          <div className="w-[800px] h-[800px] border border-accent-gold/10 rounded-full animate-[spin_60s_linear_infinite]" />
+          <div className="absolute w-[600px] h-[600px] border border-accent-gold/5 rounded-full animate-[spin_40s_linear_infinite_reverse]" />
+        </motion.div>
       </div>
 
-      <div className="max-w-[1200px] mx-auto px-6 w-full pt-16">
-        <div className="flex flex-col lg:flex-row items-center gap-12 lg:gap-8">
+      <div className="max-w-[1400px] mx-auto px-6 w-full relative z-10">
+        <motion.div
+          variants={containerVariants}
+          initial="hidden"
+          animate="visible"
+          className="grid lg:grid-cols-12 gap-12 items-center"
+        >
           {/* Text Content */}
-          <div className="flex-1 max-w-[720px]">
-            <p
-              ref={labelRef}
-              className="font-mono text-xs tracking-[0.08em] text-text-secondary mb-6 opacity-0"
-            >
-              FULL-STACK DEVELOPER & MEDIA BUYER
-            </p>
+          <div className="lg:col-span-7 xl:col-span-8">
+            <motion.div variants={itemVariants} className="flex items-center gap-3 mb-8">
+              <span className="h-px w-8 bg-accent-gold" />
+              <p className="font-mono text-[10px] uppercase tracking-[0.3em] text-accent-gold/80">
+                Full-Stack Architect & Growth Specialist
+              </p>
+            </motion.div>
 
-            <h1
+            <motion.h1
               ref={headlineRef}
-              className="font-inter text-5xl sm:text-6xl lg:text-7xl xl:text-[80px] font-medium text-text-primary leading-[0.95] tracking-[-0.03em] mb-6 opacity-0"
+              variants={itemVariants}
+              className="font-inter text-6xl sm:text-7xl xl:text-[100px] font-bold text-white leading-[0.9] tracking-[-0.04em] mb-8"
             >
-              I build systems
+              Building <span className="text-transparent bg-clip-text bg-gradient-to-r from-accent-gold via-[#F7E7CE] to-accent-gold animate-gradient-x">Digital</span>
               <br />
-              that generate
+              High-Performance
               <br />
-              <span className="text-accent-gold">revenue.</span>
-            </h1>
+              <span className="italic font-light text-accent-gold">Ecosystems.</span>
+            </motion.h1>
 
-            <p
-              ref={subRef}
-              className="text-lg sm:text-xl text-text-secondary mb-10 max-w-[480px] opacity-0"
+            <motion.p
+              variants={itemVariants}
+              className="text-xl text-text-secondary mb-12 max-w-[600px] leading-relaxed"
             >
-              Full-stack developer & performance media buyer.
-            </p>
+              I merge advanced software engineering with data-driven media buying to build systems that don't just work—they scale revenue.
+            </motion.p>
 
-            {/* Metrics */}
-            <div ref={metricsRef} className="flex flex-wrap gap-8 sm:gap-12 mb-10 opacity-0">
-              <div>
-                <div className="font-inter text-3xl sm:text-4xl font-medium text-accent-gold tracking-[-0.02em]">
-                  {counts.cpr.toFixed(2)} <span className="text-lg">EGP</span>
+            {/* Metrics Grid */}
+            <motion.div 
+              variants={itemVariants}
+              className="grid grid-cols-2 sm:grid-cols-3 gap-8 mb-12 p-8 bg-white/[0.02] border border-white/[0.05] backdrop-blur-sm rounded-2xl"
+            >
+              <div className="space-y-1">
+                <div className="flex items-center gap-2 text-accent-gold/60">
+                  <TrendingUp size={14} />
+                  <span className="font-mono text-[10px] tracking-widest uppercase">CPR</span>
                 </div>
-                <div className="font-mono text-xs text-text-muted mt-1 tracking-[0.02em]">
-                  COST PER RESULT
+                <div className="text-3xl font-medium text-white tabular-nums">
+                  {counts.cpr.toFixed(2)}<span className="text-sm ml-1 text-text-muted">EGP</span>
                 </div>
               </div>
-              <div>
-                <div className="font-inter text-3xl sm:text-4xl font-medium text-accent-gold tracking-[-0.02em]">
+              <div className="space-y-1">
+                <div className="flex items-center gap-2 text-accent-gold/60">
+                  <Code2 size={14} />
+                  <span className="font-mono text-[10px] tracking-widest uppercase">CTR</span>
+                </div>
+                <div className="text-3xl font-medium text-white tabular-nums">
                   {counts.ctr.toFixed(2)}%
                 </div>
-                <div className="font-mono text-xs text-text-muted mt-1 tracking-[0.02em]">
-                  CTR
-                </div>
               </div>
-              <div>
-                <div className="font-inter text-3xl sm:text-4xl font-medium text-accent-gold tracking-[-0.02em]">
+              <div className="col-span-2 sm:col-span-1 space-y-1">
+                <div className="flex items-center gap-2 text-accent-gold/60">
+                  <Globe size={14} />
+                  <span className="font-mono text-[10px] tracking-widest uppercase">Conversions</span>
+                </div>
+                <div className="text-3xl font-medium text-white tabular-nums">
                   {counts.conv.toLocaleString()}+
                 </div>
-                <div className="font-mono text-xs text-text-muted mt-1 tracking-[0.02em]">
-                  CONVERSIONS GENERATED
-                </div>
               </div>
-            </div>
+            </motion.div>
 
             {/* CTAs */}
-            <div ref={ctaRef} className="flex flex-wrap gap-4 opacity-0">
+            <motion.div variants={itemVariants} className="flex flex-wrap gap-6">
               <a
                 href="#case-studies"
-                onClick={(e) => {
-                  e.preventDefault()
-                  document.querySelector('#case-studies')?.scrollIntoView({ behavior: 'smooth' })
-                }}
-                className="inline-flex items-center gap-2 px-8 py-4 bg-accent-gold text-bg-core font-inter text-sm font-medium hover:bg-accent-gold-hover transition-all duration-200 hover:-translate-y-0.5"
+                className="group relative inline-flex items-center gap-3 px-10 py-5 bg-accent-gold text-black font-bold text-sm uppercase tracking-widest overflow-hidden transition-all"
               >
-                View Case Studies
-                <ArrowRight size={16} />
+                <span className="relative z-10">Explore Work</span>
+                <ArrowRight size={18} className="relative z-10 group-hover:translate-x-1 transition-transform" />
+                <div className="absolute inset-0 bg-white translate-y-full group-hover:translate-y-0 transition-transform duration-300" />
               </a>
               <a
                 href="#contact"
-                onClick={(e) => {
-                  e.preventDefault()
-                  document.querySelector('#contact')?.scrollIntoView({ behavior: 'smooth' })
-                }}
-                className="inline-flex items-center gap-2 px-8 py-4 border border-border-light text-text-primary font-inter text-sm font-medium hover:border-accent-gold hover:text-accent-gold transition-all duration-200 hover:-translate-y-0.5"
+                className="group inline-flex items-center gap-3 px-10 py-5 border border-white/10 text-white font-bold text-sm uppercase tracking-widest hover:border-accent-gold hover:text-accent-gold transition-all"
               >
-                <Phone size={16} />
-                Contact Me
+                <Phone size={18} />
+                Get in Touch
               </a>
-            </div>
+            </motion.div>
           </div>
 
-          {/* Portrait */}
-          <div
-            ref={portraitRef}
-            className="hidden lg:block w-[380px] xl:w-[420px] flex-shrink-0 opacity-0"
+          {/* Portrait Section */}
+          <motion.div
+            variants={itemVariants}
+            className="lg:col-span-5 xl:col-span-4 relative"
           >
-            <div className="relative">
-              <img
-                src="/hero-portrait.jpg"
-                alt="Yomna Ali Salama"
-                className="w-full h-auto object-cover grayscale-[30%] contrast-110"
-                style={{ maxHeight: '560px' }}
-              />
-              <div className="absolute inset-0 bg-gradient-to-t from-bg-core via-transparent to-transparent opacity-60" />
-              <div className="absolute bottom-0 left-0 right-0 p-6">
-                <p className="font-mono text-xs text-text-muted tracking-[0.04em]">
-                  BASED IN EGYPT · WORKING GLOBALLY
-                </p>
+            <div className="relative aspect-[4/5] w-full max-w-[450px] mx-auto group">
+              {/* Decorative Frame */}
+              <div className="absolute -inset-4 border border-accent-gold/20 rounded-2xl group-hover:-inset-2 transition-all duration-500" />
+              <div className="absolute -inset-px bg-gradient-to-b from-accent-gold/20 to-transparent rounded-2xl" />
+              
+              {/* Main Image Container */}
+              <div className="relative h-full w-full overflow-hidden rounded-2xl bg-[#111] border border-white/10">
+                <motion.img
+                  src="/hero-portrait.jpg"
+                  alt="Yomna Ali Salama"
+                  className="w-full h-full object-cover grayscale-[20%] group-hover:grayscale-0 group-hover:scale-105 transition-all duration-700"
+                  whileHover={{ scale: 1.05 }}
+                />
+                <div className="absolute inset-0 bg-gradient-to-t from-black via-transparent to-transparent opacity-80" />
+                
+                {/* Floating Badge */}
+                <div className="absolute bottom-6 left-6 right-6">
+                  <div className="p-4 bg-black/60 backdrop-blur-md border border-white/10 rounded-xl">
+                    <p className="font-mono text-[10px] text-accent-gold tracking-[0.2em] mb-1 uppercase">Availability</p>
+                    <div className="flex items-center gap-2">
+                      <span className="w-2 h-2 bg-green-500 rounded-full animate-pulse" />
+                      <p className="text-xs text-white font-medium uppercase tracking-wider">Open for Global Projects</p>
+                    </div>
+                  </div>
+                </div>
               </div>
             </div>
-          </div>
-        </div>
+          </motion.div>
+        </motion.div>
       </div>
 
-      {/* Scroll Indicator */}
-      <div className="absolute bottom-8 left-1/2 -translate-x-1/2 flex flex-col items-center gap-2">
-        <div className="w-px h-10 bg-border-dark relative overflow-hidden">
-          <div className="absolute top-0 left-0 w-full h-3 bg-accent-gold animate-pulse" />
+      {/* Modern Scroll Indicator */}
+      <motion.div 
+        initial={{ opacity: 0 }}
+        animate={{ opacity: 1 }}
+        transition={{ delay: 2, duration: 1 }}
+        className="absolute bottom-10 left-1/2 -translate-x-1/2 hidden md:flex flex-col items-center gap-4"
+      >
+        <span className="font-mono text-[9px] tracking-[0.4em] text-text-muted uppercase">Discover</span>
+        <div className="w-px h-16 bg-gradient-to-b from-accent-gold to-transparent relative">
+          <motion.div 
+            animate={{ y: [0, 40, 0] }}
+            transition={{ duration: 2, repeat: Infinity, ease: "easeInOut" }}
+            className="absolute top-0 left-[-1px] w-[3px] h-3 bg-accent-gold rounded-full shadow-[0_0_10px_#D4AF37]"
+          />
         </div>
-        <span className="font-mono text-[10px] tracking-[0.08em] text-text-muted">SCROLL</span>
-      </div>
+      </motion.div>
     </section>
   )
 }
