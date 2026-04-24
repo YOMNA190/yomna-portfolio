@@ -1,28 +1,29 @@
 import { useState, useEffect } from 'react'
+import { motion, AnimatePresence } from 'framer-motion'
 import { Menu, X } from 'lucide-react'
 
 const navLinks = [
-  { label: 'Work', href: '#case-studies' },
-  { label: 'Process', href: '#process' },
-  { label: 'Analytics', href: '#analytics' },
-  { label: 'Contact', href: '#contact' },
+  { name: 'Work', href: '#case-studies' },
+  { name: 'Strategy', href: '#analytics' },
+  { name: 'Process', href: '#process' },
+  { name: 'Contact', href: '#contact' },
 ]
 
 export default function Navigation() {
-  const [scrolled, setScrolled] = useState(false)
-  const [mobileOpen, setMobileOpen] = useState(false)
+  const [isScrolled, setIsScrolled] = useState(false)
+  const [isMobileMenuOpen, setIsMobileMenuOpen] = useState(false)
 
   useEffect(() => {
     const handleScroll = () => {
-      setScrolled(window.scrollY > 50)
+      setIsScrolled(window.scrollY > 50)
     }
-    window.addEventListener('scroll', handleScroll, { passive: true })
+    window.addEventListener('scroll', handleScroll)
     return () => window.removeEventListener('scroll', handleScroll)
   }, [])
 
-  const handleClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
+  const handleNavClick = (e: React.MouseEvent<HTMLAnchorElement>, href: string) => {
     e.preventDefault()
-    setMobileOpen(false)
+    setIsMobileMenuOpen(false)
     const target = document.querySelector(href)
     if (target) {
       target.scrollIntoView({ behavior: 'smooth' })
@@ -30,66 +31,82 @@ export default function Navigation() {
   }
 
   return (
-    <header
-      className={`fixed top-0 left-0 right-0 z-50 h-16 transition-all duration-300 ${
-        scrolled
-          ? 'bg-bg-core/85 backdrop-blur-md border-b border-border-dark'
-          : 'bg-transparent border-b border-transparent'
-      }`}
-    >
-      <div className="max-w-[1200px] mx-auto px-6 h-full flex items-center justify-between">
-        <a
-          href="#"
-          onClick={(e) => {
-            e.preventDefault()
-            window.scrollTo({ top: 0, behavior: 'smooth' })
-          }}
-          className="font-mono text-xs tracking-[0.08em] text-text-primary hover:text-accent-gold transition-colors duration-200"
-        >
-          YOMNA ALI SALAMA
-        </a>
+    <nav className="fixed top-0 left-0 w-full z-[100] transition-all duration-500 py-6">
+      <div className="max-w-[1400px] mx-auto px-6">
+        <div className={`
+          relative flex items-center justify-between px-6 py-4 rounded-2xl transition-all duration-500
+          ${isScrolled ? 'glass-effect-premium py-3' : 'bg-transparent'}
+        `}>
+          {/* Logo */}
+          <a href="#" className="group flex items-center gap-2">
+            <div className="w-8 h-8 bg-accent-gold rounded-lg flex items-center justify-center group-hover:rotate-12 transition-transform duration-300">
+              <span className="text-black font-bold text-lg">Y</span>
+            </div>
+            <span className="font-inter font-bold text-xl tracking-tight text-white group-hover:text-accent-gold transition-colors">
+              Yomna<span className="text-accent-gold group-hover:text-white">.dev</span>
+            </span>
+          </a>
 
-        {/* Desktop Nav */}
-        <nav className="hidden md:flex items-center gap-8">
-          {navLinks.map((link) => (
-            <a
-              key={link.label}
-              href={link.href}
-              onClick={(e) => handleClick(e, link.href)}
-              className="text-sm font-inter text-text-secondary hover:text-accent-gold transition-colors duration-200"
-            >
-              {link.label}
-            </a>
-          ))}
-        </nav>
-
-        {/* Mobile Toggle */}
-        <button
-          onClick={() => setMobileOpen(!mobileOpen)}
-          className="md:hidden text-text-primary hover:text-accent-gold transition-colors"
-          aria-label="Toggle menu"
-        >
-          {mobileOpen ? <X size={20} /> : <Menu size={20} />}
-        </button>
-      </div>
-
-      {/* Mobile Nav */}
-      {mobileOpen && (
-        <div className="md:hidden bg-bg-core/95 backdrop-blur-md border-b border-border-dark">
-          <nav className="flex flex-col px-6 py-4 gap-4">
+          {/* Desktop Nav */}
+          <div className="hidden md:flex items-center gap-8">
             {navLinks.map((link) => (
               <a
-                key={link.label}
+                key={link.name}
                 href={link.href}
-                onClick={(e) => handleClick(e, link.href)}
-                className="text-sm font-inter text-text-secondary hover:text-accent-gold transition-colors duration-200"
+                onClick={(e) => handleNavClick(e, link.href)}
+                className="font-mono text-[11px] uppercase tracking-[0.2em] text-text-secondary hover:text-accent-gold transition-colors"
               >
-                {link.label}
+                {link.name}
               </a>
             ))}
-          </nav>
+            <a
+              href="https://wa.me/201069807254"
+              target="_blank"
+              rel="noopener noreferrer"
+              className="px-5 py-2 bg-accent-gold text-black font-mono text-[11px] uppercase tracking-widest font-bold rounded-lg hover:bg-white transition-all duration-300"
+            >
+              Hire Me
+            </a>
+          </div>
+
+          {/* Mobile Toggle */}
+          <button
+            className="md:hidden text-white p-2"
+            onClick={() => setIsMobileMenuOpen(!isMobileMenuOpen)}
+          >
+            {isMobileMenuOpen ? <X size={24} /> : <Menu size={24} />}
+          </button>
         </div>
-      )}
-    </header>
+      </div>
+
+      {/* Mobile Menu */}
+      <AnimatePresence>
+        {isMobileMenuOpen && (
+          <motion.div
+            initial={{ opacity: 0, y: -20 }}
+            animate={{ opacity: 1, y: 0 }}
+            exit={{ opacity: 0, y: -20 }}
+            className="fixed inset-0 z-[90] bg-[#050505] flex flex-col items-center justify-center gap-8 md:hidden"
+          >
+            {navLinks.map((link) => (
+              <a
+                key={link.name}
+                href={link.href}
+                onClick={(e) => handleNavClick(e, link.href)}
+                className="font-inter text-4xl font-bold text-white hover:text-accent-gold transition-colors"
+              >
+                {link.name}
+              </a>
+            ))}
+            <button 
+              onClick={() => setIsMobileMenuOpen(false)}
+              className="absolute top-8 right-8 text-white p-2"
+            >
+              <X size={32} />
+            </button>
+          </motion.div>
+        )}
+      </AnimatePresence>
+    </nav>
   )
 }

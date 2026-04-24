@@ -62,8 +62,18 @@ module.exports = {
         "glow-pulse": "glow-pulse 3s ease-in-out infinite",
         "float": "float 6s ease-in-out infinite",
         "shimmer": "shimmer 2s ease-in-out infinite",
+        "pulse-slow": "pulse-slow 8s ease-in-out infinite",
+        "spin-slow": "spin-slow 20s linear infinite",
       },
       keyframes: {
+        "pulse-slow": {
+          "0%, 100%": { "opacity": "0.3", "transform": "scale(1)" },
+          "50%": { "opacity": "0.6", "transform": "scale(1.1)" },
+        },
+        "spin-slow": {
+          "from": { "transform": "rotate(0deg)" },
+          "to": { "transform": "rotate(360deg)" },
+        },
         "gradient-x": {
           "0%, 100%": { "background-position": "0% 50%" },
           "50%": { "background-position": "100% 50%" },

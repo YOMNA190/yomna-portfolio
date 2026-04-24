@@ -1,27 +1,25 @@
 import { useEffect, useRef, useState } from 'react'
 import { gsap } from 'gsap'
-import { motion, useScroll, useTransform, type Variants } from 'framer-motion'
+import { motion, type Variants } from 'framer-motion'
 import { ArrowRight, Phone, Code2, TrendingUp, Globe } from 'lucide-react'
 import InteractivePortrait from '../components/InteractivePortrait'
 import MagneticButton from '../components/MagneticButton'
 
 export default function HeroNew() {
   const sectionRef = useRef<HTMLElement>(null)
-  const headlineRef = useRef<HTMLHeadingElement>(null)
   const [counts, setCounts] = useState({ cpr: 0, ctr: 0, conv: 0 })
-  const { scrollY } = useScroll()
-  const y1 = useTransform(scrollY, [0, 500], [0, 200])
-  const opacity = useTransform(scrollY, [0, 300], [1, 0])
+  // const { scrollY } = useScroll()
+  // const y1 = useTransform(scrollY, [0, 500], [0, 200])
+  // const opacity = useTransform(scrollY, [0, 300], [1, 0])
 
   useEffect(() => {
     const ctx = gsap.context(() => {
-      // Animate counters with bounce
       const counterTl = gsap.timeline({ delay: 0.5 })
       counterTl.to(
         {},
         {
-          duration: 2,
-          ease: 'back.out',
+          duration: 2.5,
+          ease: 'power4.out',
           onUpdate: function () {
             const progress = this.progress()
             setCounts({
@@ -42,61 +40,31 @@ export default function HeroNew() {
     visible: {
       opacity: 1,
       transition: {
-        staggerChildren: 0.12,
-        delayChildren: 0.2,
+        staggerChildren: 0.1,
+        delayChildren: 0.3,
       },
     },
   }
 
   const itemVariants: Variants = {
-    hidden: { y: 30, opacity: 0 },
+    hidden: { y: 20, opacity: 0 },
     visible: {
       y: 0,
       opacity: 1,
-      transition: { duration: 0.8 },
+      transition: { duration: 0.8, ease: [0.16, 1, 0.3, 1] },
     },
   }
-
-
 
   return (
     <section
       ref={sectionRef}
-      className="relative min-h-screen flex items-center bg-bg-core overflow-hidden pt-20"
+      className="relative min-h-screen flex items-center bg-[#050505] overflow-hidden pt-24 pb-16"
     >
-      {/* Enhanced Dynamic Background */}
-      <div className="absolute inset-0 z-0">
-        {/* Base gradient */}
-        <div className="absolute inset-0 bg-gradient-to-br from-bg-core via-[#0a0a0a] to-[#080808]" />
-
-        {/* Organic gradient mesh */}
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_30%_50%,rgba(212,175,55,0.08),transparent_50%)]" />
-        <div className="absolute inset-0 bg-[radial-gradient(circle_at_70%_50%,rgba(212,175,55,0.05),transparent_50%)]" />
-
-        {/* Subtle texture */}
-        <div
-          className="absolute inset-0 opacity-[0.08]"
-          style={{
-            backgroundImage: 'url("https://www.transparenttextures.com/patterns/stardust.png")',
-          }}
-        />
-
-        {/* Animated orbs */}
-        <motion.div
-          style={{ y: y1, opacity }}
-          className="absolute inset-0 flex items-center justify-center pointer-events-none"
-        >
-          <motion.div
-            className="w-[800px] h-[800px] border border-accent-gold/10 rounded-full"
-            animate={{ rotate: 360 }}
-            transition={{ duration: 60, repeat: Infinity, ease: 'linear' }}
-          />
-          <motion.div
-            className="absolute w-[600px] h-[600px] border border-accent-gold/5 rounded-full"
-            animate={{ rotate: -360 }}
-            transition={{ duration: 40, repeat: Infinity, ease: 'linear' }}
-          />
-        </motion.div>
+      {/* Liquid Cyber Background */}
+      <div className="absolute inset-0 z-0 overflow-hidden pointer-events-none">
+        <div className="absolute top-[-10%] left-[-10%] w-[40%] h-[40%] bg-accent-gold/10 blur-[120px] rounded-full animate-pulse-slow" />
+        <div className="absolute bottom-[-10%] right-[-10%] w-[50%] h-[50%] bg-accent-gold/5 blur-[150px] rounded-full animate-pulse-slow" style={{ animationDelay: '2s' }} />
+        <div className="absolute inset-0 cyber-grid opacity-20" />
       </div>
 
       <div className="max-w-[1400px] mx-auto px-6 w-full relative z-10">
@@ -104,116 +72,119 @@ export default function HeroNew() {
           variants={containerVariants}
           initial="hidden"
           animate="visible"
-          className="grid lg:grid-cols-12 gap-8 lg:gap-12 items-center"
+          className="grid lg:grid-cols-12 gap-12 lg:gap-16 items-center"
         >
           {/* Text Content */}
           <div className="lg:col-span-7 xl:col-span-8 order-2 lg:order-1">
-            {/* Badge */}
-            <motion.div variants={itemVariants} className="flex items-center gap-3 mb-8">
-              <span className="h-px w-8 bg-accent-gold" />
-              <p className="font-mono text-[10px] uppercase tracking-[0.3em] text-accent-gold/80">
-                Full-Stack Architect & Growth Specialist
+            {/* Professional Badge */}
+            <motion.div variants={itemVariants} className="inline-flex items-center gap-3 mb-8 px-4 py-2 glass-effect-premium rounded-full">
+              <span className="relative flex h-2 w-2">
+                <span className="animate-ping absolute inline-flex h-full w-full rounded-full bg-accent-gold opacity-75"></span>
+                <span className="relative inline-flex rounded-full h-2 w-2 bg-accent-gold"></span>
+              </span>
+              <p className="font-mono text-[10px] uppercase tracking-[0.2em] text-accent-gold/90">
+                Available for high-stakes projects
               </p>
             </motion.div>
-
-            {/* Headline with staggered reveal */}
+            
+            {/* Headline */}
             <motion.h1
-              ref={headlineRef}
               variants={itemVariants}
-              className="font-inter text-5xl sm:text-6xl lg:text-7xl xl:text-[100px] font-bold text-white leading-[0.9] tracking-[-0.04em] mb-8"
+              className="font-inter text-5xl sm:text-7xl lg:text-8xl xl:text-[110px] font-bold text-white leading-[0.85] tracking-[-0.05em] mb-8"
             >
-              Building{' '}
-              <span className="text-transparent bg-clip-text bg-gradient-to-r from-accent-gold via-[#F7E7CE] to-accent-gold animate-gradient-x">
-                Digital
-              </span>
-              <br />
-              High-Performance
-              <br />
-              <span className="italic font-light text-accent-gold">Ecosystems.</span>
+              Building <br />
+              <span className="text-luxury">Digital</span> <br />
+              <span className="italic font-light">Ecosystems.</span>
             </motion.h1>
 
-            {/* Description */}
+            {/* Sub-headline */}
             <motion.p
               variants={itemVariants}
-              className="text-lg sm:text-xl text-text-secondary mb-12 max-w-[600px] leading-relaxed"
+              className="text-xl sm:text-2xl text-text-secondary mb-12 max-w-[650px] leading-relaxed font-light"
             >
-              I merge advanced software engineering with data-driven media buying to build systems
-              that don't just work—they scale revenue.
+              I merge <span className="text-white font-medium">advanced engineering</span> with <span className="text-white font-medium">growth strategy</span> to build systems that dominate markets.
             </motion.p>
 
-            {/* Metrics Grid - Glass Effect */}
+            {/* High-Performance Metrics */}
             <motion.div
               variants={itemVariants}
-              className="grid grid-cols-2 sm:grid-cols-3 gap-6 sm:gap-8 mb-12 p-6 sm:p-8 glass-effect rounded-2xl"
+              className="grid grid-cols-2 sm:grid-cols-3 gap-6 mb-12 max-w-[800px]"
             >
-              <div className="space-y-2">
-                <div className="flex items-center gap-2 text-accent-gold/60">
-                  <TrendingUp size={14} />
-                  <span className="font-mono text-[10px] tracking-widest uppercase">CPR</span>
+              {[
+                { label: 'Avg. CPR', value: `${counts.cpr.toFixed(2)} EGP`, icon: TrendingUp },
+                { label: 'Avg. CTR', value: `${counts.ctr.toFixed(2)}%`, icon: Code2 },
+                { label: 'Conversions', value: `${counts.conv.toLocaleString()}+`, icon: Globe },
+              ].map((metric, i) => (
+                <div key={i} className="p-6 glass-effect-premium glass-effect-hover rounded-2xl group">
+                  <div className="flex items-center gap-2 text-accent-gold/50 mb-3 group-hover:text-accent-gold transition-colors">
+                    <metric.icon size={14} />
+                    <span className="font-mono text-[10px] tracking-widest uppercase">{metric.label}</span>
+                  </div>
+                  <div className="text-3xl font-medium text-white tabular-nums">
+                    {metric.value}
+                  </div>
                 </div>
-                <div className="text-3xl font-medium text-white tabular-nums">
-                  {counts.cpr.toFixed(2)}
-                  <span className="text-sm ml-1 text-text-muted">EGP</span>
-                </div>
-              </div>
-              <div className="space-y-2">
-                <div className="flex items-center gap-2 text-accent-gold/60">
-                  <Code2 size={14} />
-                  <span className="font-mono text-[10px] tracking-widest uppercase">CTR</span>
-                </div>
-                <div className="text-3xl font-medium text-white tabular-nums">
-                  {counts.ctr.toFixed(2)}%
-                </div>
-              </div>
-              <div className="col-span-2 sm:col-span-1 space-y-2">
-                <div className="flex items-center gap-2 text-accent-gold/60">
-                  <Globe size={14} />
-                  <span className="font-mono text-[10px] tracking-widest uppercase">Conversions</span>
-                </div>
-                <div className="text-3xl font-medium text-white tabular-nums">
-                  {counts.conv.toLocaleString()}+
-                </div>
-              </div>
+              ))}
             </motion.div>
 
-            {/* CTAs with Magnetic Effect */}
-            <motion.div variants={itemVariants} className="flex flex-wrap gap-4 sm:gap-6">
+            {/* Premium Actions */}
+            <motion.div variants={itemVariants} className="flex flex-wrap gap-6">
               <MagneticButton href="#case-studies" variant="primary">
-                <span>Explore Work</span>
-                <ArrowRight size={18} />
+                <span className="flex items-center gap-3">
+                  View Case Studies <ArrowRight size={18} />
+                </span>
               </MagneticButton>
               <MagneticButton href="#contact" variant="secondary">
-                <Phone size={18} />
-                <span>Get in Touch</span>
+                <span className="flex items-center gap-3">
+                  <Phone size={18} /> Let's Talk
+                </span>
               </MagneticButton>
             </motion.div>
           </div>
 
-          {/* Interactive Portrait */}
+          {/* Portrait with Enhanced Visuals */}
           <motion.div
             variants={itemVariants}
-            className="lg:col-span-5 xl:col-span-4 order-1 lg:order-2"
+            className="lg:col-span-5 xl:col-span-4 order-1 lg:order-2 relative"
           >
-            <InteractivePortrait src="/hero-portrait.jpg" alt="Yomna Ali Salama" />
+            <div className="absolute inset-0 bg-accent-gold/20 blur-[100px] rounded-full animate-pulse-slow" />
+            <div className="relative z-10">
+              <InteractivePortrait src="/hero-portrait.jpg" alt="Yomna Ali Salama" />
+            </div>
+            
+            {/* Floating element */}
+            <motion.div 
+              animate={{ y: [0, -15, 0] }}
+              transition={{ duration: 4, repeat: Infinity, ease: 'easeInOut' }}
+              className="absolute -bottom-6 -right-6 p-4 glass-effect-premium rounded-xl z-20 hidden xl:block"
+            >
+              <div className="flex items-center gap-3">
+                <div className="w-10 h-10 rounded-full bg-accent-gold/10 flex items-center justify-center">
+                  <Code2 className="text-accent-gold" size={20} />
+                </div>
+                <div>
+                  <p className="text-[10px] font-mono text-accent-gold/60 uppercase">Tech Stack</p>
+                  <p className="text-xs font-medium text-white">React 19 + GSAP</p>
+                </div>
+              </div>
+            </motion.div>
           </motion.div>
         </motion.div>
       </div>
 
-      {/* Enhanced Scroll Indicator */}
+      {/* Luxury Scroll Indicator */}
       <motion.div
         initial={{ opacity: 0 }}
         animate={{ opacity: 1 }}
-        transition={{ delay: 2, duration: 1 }}
-        className="absolute bottom-10 left-1/2 -translate-x-1/2 hidden md:flex flex-col items-center gap-4"
+        transition={{ delay: 2.5, duration: 1 }}
+        className="absolute bottom-10 left-1/2 -translate-x-1/2 hidden md:flex flex-col items-center gap-4 pointer-events-none"
       >
-        <span className="font-mono text-[9px] tracking-[0.4em] text-text-muted uppercase">
-          Discover
-        </span>
-        <div className="w-px h-16 bg-gradient-to-b from-accent-gold to-transparent relative">
+        <span className="font-mono text-[9px] tracking-[0.5em] text-text-muted uppercase">Scroll to Explore</span>
+        <div className="w-[1px] h-20 bg-gradient-to-b from-accent-gold/50 via-accent-gold to-transparent relative">
           <motion.div
             animate={{ y: [0, 40, 0] }}
-            transition={{ duration: 2, repeat: Infinity, ease: 'easeInOut' }}
-            className="absolute top-0 left-[-1px] w-[3px] h-3 bg-accent-gold rounded-full shadow-[0_0_10px_#D4AF37]"
+            transition={{ duration: 2.5, repeat: Infinity, ease: 'easeInOut' }}
+            className="absolute top-0 left-[-1.5px] w-1 h-4 bg-accent-gold rounded-full shadow-[0_0_15px_#D4AF37]"
           />
         </div>
       </motion.div>
