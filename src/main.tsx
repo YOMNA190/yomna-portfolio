@@ -3,11 +3,14 @@ import { createRoot } from 'react-dom/client'
 import { BrowserRouter } from 'react-router'
 import './index.css'
 import App from './App.tsx'
+import LenisProvider from './components/LenisProvider'
 
 createRoot(document.getElementById('root')!).render(
   <StrictMode>
-    <BrowserRouter>
-      <App />
-    </BrowserRouter>
+    <LenisProvider>
+      <BrowserRouter>
+        <App />
+      </BrowserRouter>
+    </LenisProvider>
   </StrictMode>,
 )

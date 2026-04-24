@@ -1,17 +1,17 @@
 import { useEffect, useState } from 'react'
-import { motion, AnimatePresence } from 'framer-motion'
+import { motion } from 'framer-motion'
 import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import Navigation from './sections/Navigation'
-import Hero from './sections/Hero'
-import TrustStrip from './sections/TrustStrip'
+import HeroNew from './sections/HeroNew'
+import TrustStripNew from './sections/TrustStripNew'
 import DualPositioning from './sections/DualPositioning'
-import CaseStudies from './sections/CaseStudies'
+import CaseStudiesNew from './sections/CaseStudiesNew'
 import CodeToCash from './sections/CodeToCash'
-import PerformanceDashboard from './sections/PerformanceDashboard'
+import PerformanceDashboardNew from './sections/PerformanceDashboardNew'
 import ProcessSection from './sections/ProcessSection'
-import SecondaryProjects from './sections/SecondaryProjects'
-import ContactSection from './sections/ContactSection'
+import SecondaryProjectsNew from './sections/SecondaryProjectsNew'
+import ContactSectionNew from './sections/ContactSectionNew'
 import Footer from './sections/Footer'
 
 gsap.registerPlugin(ScrollTrigger)
@@ -67,16 +67,16 @@ export default function App() {
         onMouseEnter={() => setCursorVariant('default')}
       >
         <div onMouseEnter={() => setCursorVariant('hover')} onMouseLeave={() => setCursorVariant('default')}>
-          <Hero />
+          <HeroNew />
         </div>
-        <TrustStrip />
+        <TrustStripNew />
         <DualPositioning />
-        <CaseStudies />
+        <CaseStudiesNew />
         <CodeToCash />
-        <PerformanceDashboard />
+        <PerformanceDashboardNew />
         <ProcessSection />
-        <SecondaryProjects />
-        <ContactSection />
+        <SecondaryProjectsNew />
+        <ContactSectionNew />
       </main>
       <Footer />
       

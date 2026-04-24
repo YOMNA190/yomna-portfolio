@@ -5,9 +5,10 @@ module.exports = {
   theme: {
     extend: {
       colors: {
-        'bg-core': '#050505',
-        'surface': '#0A0A0A',
-        'surface-hover': '#111111',
+        'bg-core': '#080808',
+        'surface': '#0F0F0F',
+        'surface-hover': '#141414',
+        'surface-glass': 'rgba(15, 15, 15, 0.7)',
         'text-primary': '#FFFFFF',
         'text-secondary': '#A1A1AA',
         'text-muted': '#71717A',
@@ -58,11 +59,26 @@ module.exports = {
         "accordion-up": "accordion-up 0.2s ease-out",
         "caret-blink": "caret-blink 1.25s ease-out infinite",
         "gradient-x": "gradient-x 15s ease infinite",
+        "glow-pulse": "glow-pulse 3s ease-in-out infinite",
+        "float": "float 6s ease-in-out infinite",
+        "shimmer": "shimmer 2s ease-in-out infinite",
       },
       keyframes: {
         "gradient-x": {
           "0%, 100%": { "background-position": "0% 50%" },
           "50%": { "background-position": "100% 50%" },
+        },
+        "glow-pulse": {
+          "0%, 100%": { "box-shadow": "0 0 20px rgba(201, 168, 76, 0.3)" },
+          "50%": { "box-shadow": "0 0 40px rgba(201, 168, 76, 0.6)" },
+        },
+        "float": {
+          "0%, 100%": { "transform": "translateY(0px)" },
+          "50%": { "transform": "translateY(-10px)" },
+        },
+        "shimmer": {
+          "0%, 100%": { "opacity": "0.5" },
+          "50%": { "opacity": "1" },
         },
       },
     },

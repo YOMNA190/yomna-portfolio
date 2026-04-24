@@ -1,5 +1,5 @@
 import { motion } from 'framer-motion'
-import { TrendingUp, ExternalLink, Code2, Rocket } from 'lucide-react'
+import { TrendingUp, ExternalLink, Rocket } from 'lucide-react'
 
 const projects = [
   {
