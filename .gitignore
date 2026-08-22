@@ -23,3 +23,26 @@ dist-ssr
 *.sln
 *.sw?
 .vercel
+
+# Professional repository defaults
+# Dependencies
+node_modules/
+.pnpm-store/
+# Build output
+dist/
+build/
+.next/
+out/
+# Environment and secrets
+.env
+.env.*
+!.env.example
+# Deployment tooling
+.vercel/
+.netlify/
+# Logs and coverage
+coverage/
+# Local/editor files
+.vscode/
+.idea/
+*.swp
