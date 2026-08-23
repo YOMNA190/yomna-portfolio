@@ -5,15 +5,15 @@ import { motion } from 'framer-motion'
 const projects = [
   {
     id: 'field-service',
-    title: 'Field Service Pro',
-    category: 'Arabic Operations SaaS',
-    evidence: '10 automated checks',
+    title: 'ميداني / Field Service Pro',
+    category: 'Arabic Operations SaaS · Pilot',
+    evidence: '12 automated checks · Pilot ready',
     description: 'Arabic RTL operations product for field teams with protected RBAC, scheduling conflict checks, live SLA attention, maintenance plans, audit history, and a limited customer portal.',
     tags: ['React', 'tRPC', 'Drizzle', 'MySQL'],
     icon: ShieldCheck,
     github: 'https://github.com/YOMNA190/field-service-pro',
     offerHref: 'mailto:contact@yomna.dev?subject=طلب%20Pilot%20لـ%20ميداني%20Field%20Service%20Pro',
-    offerLabel: 'Request a scoped pilot',
+    offerLabel: 'اطلبي Pilot تشغيلي',
     tone: 'from-blue-500/25 via-cyan-400/10 to-transparent',
   },
   {
