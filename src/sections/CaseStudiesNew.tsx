@@ -12,6 +12,8 @@ const projects = [
     tags: ['React', 'tRPC', 'Drizzle', 'MySQL'],
     icon: ShieldCheck,
     github: 'https://github.com/YOMNA190/field-service-pro',
+    offerHref: 'mailto:contact@yomna.dev?subject=طلب%20Pilot%20لـ%20ميداني%20Field%20Service%20Pro',
+    offerLabel: 'Request a scoped pilot',
     tone: 'from-blue-500/25 via-cyan-400/10 to-transparent',
   },
   {
@@ -67,19 +69,19 @@ export default function CaseStudiesNew() {
 }
 
 function ProjectCard({ project, index }: { project: typeof projects[number]; index: number }) {
-  const cardRef = useRef<HTMLAnchorElement>(null)
+  const cardRef = useRef<HTMLDivElement>(null)
   const [tilt, setTilt] = useState({ x: 0, y: 0 })
   const Icon = project.icon
-  const handleMouseMove = (event: React.MouseEvent<HTMLAnchorElement>) => {
+  const handleMouseMove = (event: React.MouseEvent<HTMLDivElement>) => {
     if (!cardRef.current) return
     const rect = cardRef.current.getBoundingClientRect()
     setTilt({ x: ((event.clientX - rect.left) / rect.width - 0.5) * 5, y: ((event.clientY - rect.top) / rect.height - 0.5) * -5 })
   }
 
-  return <motion.a ref={cardRef} href={project.github} target="_blank" rel="noreferrer" initial={{ opacity: 0, y: 32 }} whileInView={{ opacity: 1, y: 0 }} transition={{ delay: index * 0.08, duration: 0.7, ease: [0.16, 1, 0.3, 1] }} onMouseMove={handleMouseMove} onMouseLeave={() => setTilt({ x: 0, y: 0 })} style={{ rotateX: tilt.y, rotateY: tilt.x, transformStyle: 'preserve-3d' }} className="group relative min-h-[360px] rounded-3xl overflow-hidden border border-white/10 bg-[#0b0c10] p-8 flex flex-col justify-between transition-colors hover:border-accent-gold/40">
+  return <motion.div ref={cardRef} initial={{ opacity: 0, y: 32 }} whileInView={{ opacity: 1, y: 0 }} transition={{ delay: index * 0.08, duration: 0.7, ease: [0.16, 1, 0.3, 1] }} onMouseMove={handleMouseMove} onMouseLeave={() => setTilt({ x: 0, y: 0 })} style={{ rotateX: tilt.y, rotateY: tilt.x, transformStyle: 'preserve-3d' }} className="group relative min-h-[360px] rounded-3xl overflow-hidden border border-white/10 bg-[#0b0c10] p-8 flex flex-col justify-between transition-colors hover:border-accent-gold/40">
     <div className={`absolute inset-0 bg-gradient-to-br ${project.tone} opacity-80`} />
     <div className="relative z-10 flex items-start justify-between gap-5" style={{ transform: 'translateZ(35px)' }}><div className="w-12 h-12 rounded-2xl border border-white/10 bg-white/5 flex items-center justify-center text-accent-gold"><Icon size={23} /></div><span className="font-mono text-[10px] text-accent-gold tracking-widest uppercase px-3 py-1.5 border border-accent-gold/20 rounded-full bg-black/20">{project.category}</span></div>
     <div className="relative z-10 mt-12" style={{ transform: 'translateZ(45px)' }}><p className="font-mono text-xs text-white/55 mb-4">{project.evidence}</p><h3 className="text-3xl font-bold text-white mb-4 group-hover:text-accent-gold transition-colors">{project.title}</h3><p className="text-text-secondary text-sm leading-relaxed max-w-xl">{project.description}</p></div>
-    <div className="relative z-10 flex items-center justify-between gap-4 mt-8" style={{ transform: 'translateZ(35px)' }}><div className="flex flex-wrap gap-x-3 gap-y-1">{project.tags.map((tag) => <span key={tag} className="text-[10px] font-mono text-text-muted">{tag}</span>)}</div><span className="shrink-0 inline-flex items-center gap-2 text-xs font-mono text-white group-hover:text-accent-gold transition-colors">View repository <ArrowUpRight size={17} /></span></div>
-  </motion.a>
+    <div className="relative z-10 mt-8 flex flex-wrap items-center justify-between gap-4" style={{ transform: 'translateZ(35px)' }}><div className="flex flex-wrap gap-x-3 gap-y-1">{project.tags.map((tag) => <span key={tag} className="text-[10px] font-mono text-text-muted">{tag}</span>)}</div><div className="flex items-center gap-3">{project.offerHref && <a href={project.offerHref} className="rounded-lg bg-accent-gold px-3 py-2 text-[10px] font-mono font-bold text-black transition hover:bg-white">{project.offerLabel}</a>}<a href={project.github} target="_blank" rel="noreferrer" className="inline-flex items-center gap-2 text-xs font-mono text-white transition hover:text-accent-gold">View repository <ArrowUpRight size={17} /></a></div></div>
+  </motion.div>
 }
