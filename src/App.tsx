@@ -4,13 +4,9 @@ import { gsap } from 'gsap'
 import { ScrollTrigger } from 'gsap/ScrollTrigger'
 import Navigation from './sections/Navigation'
 import HeroNew from './sections/HeroNew'
-import TrustStripNew from './sections/TrustStripNew'
 import DualPositioning from './sections/DualPositioning'
 import CaseStudiesNew from './sections/CaseStudiesNew'
-import CodeToCash from './sections/CodeToCash'
-import PerformanceDashboardNew from './sections/PerformanceDashboardNew'
 import ProcessSection from './sections/ProcessSection'
-import SecondaryProjectsNew from './sections/SecondaryProjectsNew'
 import ContactSectionNew from './sections/ContactSectionNew'
 import Footer from './sections/Footer'
 
@@ -69,13 +65,9 @@ export default function App() {
         <div onMouseEnter={() => setCursorVariant('hover')} onMouseLeave={() => setCursorVariant('default')}>
           <HeroNew />
         </div>
-        <TrustStripNew />
         <DualPositioning />
         <CaseStudiesNew />
-        <CodeToCash />
-        <PerformanceDashboardNew />
         <ProcessSection />
-        <SecondaryProjectsNew />
         <ContactSectionNew />
       </main>
       <Footer />

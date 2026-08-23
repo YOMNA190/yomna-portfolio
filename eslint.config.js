@@ -20,4 +20,13 @@ export default defineConfig([
       globals: globals.browser,
     },
   },
+  {
+    files: ['src/components/ui/**/*.{ts,tsx}', 'src/hooks/use-mobile.ts', 'src/sections/PerformanceDashboard.tsx', 'src/sections/PerformanceDashboardNew.tsx'],
+    rules: {
+      'react-refresh/only-export-components': ['warn', { allowConstantExport: true }],
+      'react-hooks/set-state-in-effect': 'warn',
+      'react-hooks/purity': 'warn',
+      '@typescript-eslint/no-explicit-any': 'warn',
+    },
+  },
 ])

@@ -48,9 +48,9 @@ export default function ContactSectionNew() {
           transition={{ duration: 0.6 }}
           className="font-inter text-4xl sm:text-5xl lg:text-6xl font-medium text-text-primary tracking-[-0.02em] mb-6 leading-tight"
         >
-          Let's build and scale
+          Let's build
           <br />
-          something <span className="text-accent-gold">profitable.</span>
+          something <span className="text-accent-gold">useful.</span>
         </motion.h2>
 
         <motion.p
@@ -59,7 +59,7 @@ export default function ContactSectionNew() {
           transition={{ delay: 0.1, duration: 0.6 }}
           className="text-lg text-text-secondary mb-12 max-w-[500px] mx-auto"
         >
-          Available for full-stack development, media buying strategy, and product consulting.
+          Available for product-focused front-end development, interface systems, and technical product consulting.
         </motion.p>
 
         {/* CTAs with Magnetic Effect */}
@@ -94,7 +94,7 @@ export default function ContactSectionNew() {
           transition={{ delay: 0.3, duration: 0.6 }}
           className="font-mono text-xs text-text-muted tracking-[0.02em]"
         >
-          Based in Egypt · Working globally · Response time &lt; 4 hours
+          Based in Egypt · Available for remote collaboration
         </motion.p>
       </div>
     </section>

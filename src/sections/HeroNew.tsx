@@ -1,39 +1,14 @@
-import { useEffect, useRef, useState } from 'react'
-import { gsap } from 'gsap'
+import { useRef } from 'react'
 import { motion, type Variants } from 'framer-motion'
-import { ArrowRight, Phone, Code2, TrendingUp, Globe } from 'lucide-react'
+import { ArrowRight, Phone, Code2, ShieldCheck, Workflow } from 'lucide-react'
 import InteractivePortrait from '../components/InteractivePortrait'
 import MagneticButton from '../components/MagneticButton'
 
 export default function HeroNew() {
   const sectionRef = useRef<HTMLElement>(null)
-  const [counts, setCounts] = useState({ cpr: 0, ctr: 0, conv: 0 })
   // const { scrollY } = useScroll()
   // const y1 = useTransform(scrollY, [0, 500], [0, 200])
   // const opacity = useTransform(scrollY, [0, 300], [1, 0])
-
-  useEffect(() => {
-    const ctx = gsap.context(() => {
-      const counterTl = gsap.timeline({ delay: 0.5 })
-      counterTl.to(
-        {},
-        {
-          duration: 2.5,
-          ease: 'power4.out',
-          onUpdate: function () {
-            const progress = this.progress()
-            setCounts({
-              cpr: parseFloat((1.47 * progress).toFixed(2)),
-              ctr: parseFloat((7.85 * progress).toFixed(2)),
-              conv: Math.floor(1600 * progress),
-            })
-          },
-        }
-      )
-    }, sectionRef)
-
-    return () => ctx.revert()
-  }, [])
 
   const containerVariants: Variants = {
     hidden: { opacity: 0 },
@@ -83,7 +58,7 @@ export default function HeroNew() {
                 <span className="relative inline-flex rounded-full h-2 w-2 bg-accent-gold"></span>
               </span>
               <p className="font-mono text-[10px] uppercase tracking-[0.2em] text-accent-gold/90">
-                Available for high-stakes projects
+                Available for product-focused work
               </p>
             </motion.div>
             
@@ -102,18 +77,18 @@ export default function HeroNew() {
               variants={itemVariants}
               className="text-xl sm:text-2xl text-text-secondary mb-12 max-w-[650px] leading-relaxed font-light"
             >
-              I merge <span className="text-white font-medium">advanced engineering</span> with <span className="text-white font-medium">growth strategy</span> to build systems that dominate markets.
+              I turn operational complexity into <span className="text-white font-medium">clear product flows</span>, reusable interfaces, and code that can be inspected rather than merely presented.
             </motion.p>
 
-            {/* High-Performance Metrics */}
+            {/* Product evidence */}
             <motion.div
               variants={itemVariants}
               className="grid grid-cols-2 sm:grid-cols-3 gap-6 mb-12 max-w-[800px]"
             >
               {[
-                { label: 'Avg. CPR', value: `${counts.cpr.toFixed(2)} EGP`, icon: TrendingUp },
-                { label: 'Avg. CTR', value: `${counts.ctr.toFixed(2)}%`, icon: Code2 },
-                { label: 'Conversions', value: `${counts.conv.toLocaleString()}+`, icon: Globe },
+                { label: 'Product systems', value: 'SaaS', icon: Workflow },
+                { label: 'Interface craft', value: 'RTL', icon: Code2 },
+                { label: 'Verification', value: 'Tests', icon: ShieldCheck },
               ].map((metric, i) => (
                 <div key={i} className="p-6 glass-effect-premium glass-effect-hover rounded-2xl group">
                   <div className="flex items-center gap-2 text-accent-gold/50 mb-3 group-hover:text-accent-gold transition-colors">

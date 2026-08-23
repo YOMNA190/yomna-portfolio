@@ -1,38 +1,52 @@
 import { useRef, useState } from 'react'
+import { ArrowUpRight, BookOpenCheck, Gamepad2, ShieldCheck, SwatchBook } from 'lucide-react'
 import { motion } from 'framer-motion'
-import { TrendingUp, ArrowUpRight } from 'lucide-react'
 
 const projects = [
   {
-    id: 1,
-    title: 'PS Lounge SaaS',
-    category: 'SaaS Architecture',
-    metrics: '+320% ROI',
-    description: 'A complete management ecosystem for entertainment lounges, scaling from local to regional.',
-    tags: ['React', 'Node.js', 'PostgreSQL'],
-    image: 'https://images.unsplash.com/photo-1511512578047-dfb367046420?auto=format&fit=crop&q=80&w=800',
-    color: 'from-accent-gold/20 to-transparent'
+    id: 'field-service',
+    title: 'Field Service Pro',
+    category: 'Arabic Operations SaaS',
+    evidence: '10 automated checks',
+    description: 'Arabic RTL operations product for field teams with protected RBAC, scheduling conflict checks, live SLA attention, maintenance plans, audit history, and a limited customer portal.',
+    tags: ['React', 'tRPC', 'Drizzle', 'MySQL'],
+    icon: ShieldCheck,
+    github: 'https://github.com/YOMNA190/field-service-pro',
+    tone: 'from-blue-500/25 via-cyan-400/10 to-transparent',
   },
   {
-    id: 2,
-    title: 'Qena Market',
-    category: 'E-commerce Scaling',
-    metrics: '1.2M EGP GMV',
-    description: 'Optimized multi-vendor marketplace with automated logistics and high-conversion funnels.',
-    tags: ['Next.js', 'Growth', 'Automation'],
-    image: 'https://images.unsplash.com/photo-1472851294608-062f824d29cc?auto=format&fit=crop&q=80&w=800',
-    color: 'from-accent-gold/20 to-transparent'
+    id: 'ps-lounge',
+    title: 'PS Lounge',
+    category: 'Branch Operations SaaS',
+    evidence: '3 business-rule tests',
+    description: 'Operations foundation for devices, sessions, orders, shifts, subscriptions, tournaments, and an audit trail. The case study distinguishes verified logic from Supabase environment dependencies.',
+    tags: ['React', 'Supabase', 'Vitest', 'RTL'],
+    icon: Gamepad2,
+    github: 'https://github.com/YOMNA190/ps-lounge-saas-v4',
+    tone: 'from-violet-500/25 via-fuchsia-400/10 to-transparent',
   },
   {
-    id: 3,
-    title: 'Happiness Plaza',
-    category: 'Interactive Real Estate',
-    metrics: 'Lead Gen +45%',
-    description: '3D interactive visualization tool for premium real estate developments.',
-    tags: ['Three.js', 'React', 'Marketing'],
-    image: 'https://images.unsplash.com/photo-1560518883-ce09059eeffa?auto=format&fit=crop&q=80&w=800',
-    color: 'from-accent-gold/20 to-transparent'
-  }
+    id: 'design-system',
+    title: 'Yomna Design System',
+    category: 'Reusable UI Foundation',
+    evidence: 'RTL & accessibility tests',
+    description: 'A typed component foundation built for Arabic-first interfaces: direction context, accessible buttons, badges, empty states, and shared design tokens.',
+    tags: ['TypeScript', 'React', 'Vitest', 'RTL'],
+    icon: SwatchBook,
+    github: 'https://github.com/YOMNA190/yomna-design-system',
+    tone: 'from-amber-400/25 via-orange-400/10 to-transparent',
+  },
+  {
+    id: 'arabic-academy',
+    title: 'Arabic Academy',
+    category: 'Learning Operations Prototype',
+    evidence: '3 learning-flow tests',
+    description: 'A front-end learning operations case study with lesson progress, assessment eligibility, role-based decisions, and a clearly labelled certificate preview—not a production LMS claim.',
+    tags: ['React', 'Learning UX', 'Node Test', 'RTL'],
+    icon: BookOpenCheck,
+    github: 'https://github.com/YOMNA190/arabic-academy',
+    tone: 'from-emerald-400/25 via-lime-400/10 to-transparent',
+  },
 ]
 
 export default function CaseStudiesNew() {
@@ -40,116 +54,32 @@ export default function CaseStudiesNew() {
     <section id="case-studies" className="bg-[#050505] py-32 relative overflow-hidden">
       <div className="max-w-[1400px] mx-auto px-6 relative z-10">
         <div className="flex flex-col md:flex-row md:items-end justify-between mb-20 gap-8">
-          <div className="max-w-[600px]">
-            <motion.p 
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              className="font-mono text-xs text-accent-gold tracking-[0.3em] uppercase mb-4"
-            >
-              Featured Work
-            </motion.p>
-            <motion.h2 
-              initial={{ opacity: 0, y: 20 }}
-              whileInView={{ opacity: 1, y: 0 }}
-              transition={{ delay: 0.1 }}
-              className="font-inter text-5xl sm:text-6xl font-bold text-white tracking-tight"
-            >
-              High-Impact <span className="text-luxury">Case Studies.</span>
-            </motion.h2>
+          <div className="max-w-[670px]">
+            <motion.p initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} className="font-mono text-xs text-accent-gold tracking-[0.3em] uppercase mb-4">Selected Product Work</motion.p>
+            <motion.h2 initial={{ opacity: 0, y: 20 }} whileInView={{ opacity: 1, y: 0 }} transition={{ delay: 0.1 }} className="font-inter text-5xl sm:text-6xl font-bold text-white tracking-tight">Case studies built on <span className="text-luxury">evidence.</span></motion.h2>
           </div>
-          <motion.p 
-            initial={{ opacity: 0 }}
-            whileInView={{ opacity: 1 }}
-            className="text-text-secondary text-lg max-w-[400px] font-light"
-          >
-            A selection of projects where engineering meets growth to deliver exceptional results.
-          </motion.p>
+          <motion.p initial={{ opacity: 0 }} whileInView={{ opacity: 1 }} className="text-text-secondary text-lg max-w-[430px] font-light leading-relaxed">Each card points to the repository and states what is verified in code. Product limits are documented instead of being replaced with invented revenue, users, or performance claims.</motion.p>
         </div>
-
-        <div className="grid grid-cols-1 md:grid-cols-2 lg:grid-cols-3 gap-8">
-          {projects.map((project, idx) => (
-            <ProjectCard key={project.id} project={project} idx={idx} />
-          ))}
-        </div>
+        <div className="grid grid-cols-1 md:grid-cols-2 gap-8">{projects.map((project, index) => <ProjectCard key={project.id} project={project} index={index} />)}</div>
       </div>
     </section>
   )
 }
 
-function ProjectCard({ project, idx }: { project: any, idx: number }) {
-  const cardRef = useRef<HTMLDivElement>(null)
+function ProjectCard({ project, index }: { project: typeof projects[number]; index: number }) {
+  const cardRef = useRef<HTMLAnchorElement>(null)
   const [tilt, setTilt] = useState({ x: 0, y: 0 })
-
-  const handleMouseMove = (e: React.MouseEvent<HTMLDivElement>) => {
+  const Icon = project.icon
+  const handleMouseMove = (event: React.MouseEvent<HTMLAnchorElement>) => {
     if (!cardRef.current) return
     const rect = cardRef.current.getBoundingClientRect()
-    const x = (e.clientX - rect.left) / rect.width - 0.5
-    const y = (e.clientY - rect.top) / rect.height - 0.5
-    setTilt({ x: x * 10, y: y * -10 })
+    setTilt({ x: ((event.clientX - rect.left) / rect.width - 0.5) * 5, y: ((event.clientY - rect.top) / rect.height - 0.5) * -5 })
   }
 
-  return (
-    <motion.div
-      ref={cardRef}
-      initial={{ opacity: 0, y: 40 }}
-      whileInView={{ opacity: 1, y: 0 }}
-      transition={{ delay: idx * 0.1, duration: 0.8, ease: [0.16, 1, 0.3, 1] }}
-      onMouseMove={handleMouseMove}
-      onMouseLeave={() => setTilt({ x: 0, y: 0 })}
-      style={{
-        rotateX: tilt.y,
-        rotateY: tilt.x,
-        transformStyle: 'preserve-3d',
-      }}
-      className="group relative h-[500px] rounded-3xl overflow-hidden glass-effect-premium glass-effect-hover border-white/5 cursor-pointer"
-    >
-      {/* Background Image with Overlay */}
-      <div className="absolute inset-0 z-0">
-        <img 
-          src={project.image} 
-          alt={project.title}
-          className="w-full h-full object-cover opacity-30 group-hover:opacity-50 group-hover:scale-110 transition-all duration-700 ease-out"
-        />
-        <div className={`absolute inset-0 bg-gradient-to-t from-[#050505] via-[#050505]/80 to-transparent`} />
-        <div className={`absolute inset-0 bg-gradient-to-br ${project.color} opacity-0 group-hover:opacity-100 transition-opacity duration-500`} />
-      </div>
-
-      {/* Content */}
-      <div className="absolute inset-0 z-10 p-8 flex flex-col justify-end" style={{ transform: 'translateZ(50px)' }}>
-        <div className="flex items-center justify-between mb-4">
-          <span className="font-mono text-[10px] text-accent-gold tracking-widest uppercase px-3 py-1 border border-accent-gold/20 rounded-full bg-accent-gold/5">
-            {project.category}
-          </span>
-          <div className="flex items-center gap-2 text-accent-gold">
-            <TrendingUp size={14} />
-            <span className="font-mono text-xs font-medium">{project.metrics}</span>
-          </div>
-        </div>
-
-        <h3 className="text-3xl font-bold text-white mb-4 group-hover:text-accent-gold transition-colors duration-300">
-          {project.title}
-        </h3>
-
-        <p className="text-text-secondary text-sm mb-6 line-clamp-2 group-hover:line-clamp-none transition-all duration-500 font-light leading-relaxed">
-          {project.description}
-        </p>
-
-        <div className="flex items-center justify-between">
-          <div className="flex gap-3">
-            {project.tags.map((tag: string) => (
-              <span key={tag} className="text-[10px] font-mono text-text-muted">
-                {tag}
-              </span>
-            ))}
-          </div>
-          <div className="w-10 h-10 rounded-full bg-white/5 flex items-center justify-center group-hover:bg-accent-gold group-hover:text-black transition-all duration-300">
-            <ArrowUpRight size={20} />
-          </div>
-        </div>
-      </div>
-
-      {/* Border Highlight */}
-      <div className="absolute inset-0 border border-white/0 group-hover:border-accent-gold/20 rounded-3xl transition-colors duration-500 pointer-events-none" />
-    </motion.div>
-  )
+  return <motion.a ref={cardRef} href={project.github} target="_blank" rel="noreferrer" initial={{ opacity: 0, y: 32 }} whileInView={{ opacity: 1, y: 0 }} transition={{ delay: index * 0.08, duration: 0.7, ease: [0.16, 1, 0.3, 1] }} onMouseMove={handleMouseMove} onMouseLeave={() => setTilt({ x: 0, y: 0 })} style={{ rotateX: tilt.y, rotateY: tilt.x, transformStyle: 'preserve-3d' }} className="group relative min-h-[360px] rounded-3xl overflow-hidden border border-white/10 bg-[#0b0c10] p-8 flex flex-col justify-between transition-colors hover:border-accent-gold/40">
+    <div className={`absolute inset-0 bg-gradient-to-br ${project.tone} opacity-80`} />
+    <div className="relative z-10 flex items-start justify-between gap-5" style={{ transform: 'translateZ(35px)' }}><div className="w-12 h-12 rounded-2xl border border-white/10 bg-white/5 flex items-center justify-center text-accent-gold"><Icon size={23} /></div><span className="font-mono text-[10px] text-accent-gold tracking-widest uppercase px-3 py-1.5 border border-accent-gold/20 rounded-full bg-black/20">{project.category}</span></div>
+    <div className="relative z-10 mt-12" style={{ transform: 'translateZ(45px)' }}><p className="font-mono text-xs text-white/55 mb-4">{project.evidence}</p><h3 className="text-3xl font-bold text-white mb-4 group-hover:text-accent-gold transition-colors">{project.title}</h3><p className="text-text-secondary text-sm leading-relaxed max-w-xl">{project.description}</p></div>
+    <div className="relative z-10 flex items-center justify-between gap-4 mt-8" style={{ transform: 'translateZ(35px)' }}><div className="flex flex-wrap gap-x-3 gap-y-1">{project.tags.map((tag) => <span key={tag} className="text-[10px] font-mono text-text-muted">{tag}</span>)}</div><span className="shrink-0 inline-flex items-center gap-2 text-xs font-mono text-white group-hover:text-accent-gold transition-colors">View repository <ArrowUpRight size={17} /></span></div>
+  </motion.a>
 }
